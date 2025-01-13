@@ -6,6 +6,8 @@ var logger = require("morgan");
 const mongoose = require("mongoose");
 const { startScheduler, updateLotteCinemaSchedules } = require("./scheduler");
 
+const theaterRoutes = require('./routes/theaters');
+
 const mongoURI = "mongodb://localhost:27017/theaterDB";
 
 mongoose
@@ -23,10 +25,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/api/theaters', theaterRoutes);
 
 // 스케줄러 실행
-startScheduler();
-updateLotteCinemaSchedules();
+// startScheduler();
+// updateLotteCinemaSchedules();
 
 app.use(function (req, res, next) {
   next(createError(404));

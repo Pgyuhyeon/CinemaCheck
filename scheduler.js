@@ -98,7 +98,7 @@ async function updateCGVSchedules() {
 // 스케줄러 시작 함수
 function startScheduler() {
   console.log("스케줄러가 설정되었습니다.");
-  updateCGVSchedules();
+  // updateCGVSchedules();
   // 매일 자정에 롯데시네마 스케줄러 실행
   cron.schedule("0 0 * * *", updateLotteCinemaSchedules);
 
