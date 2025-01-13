@@ -17,15 +17,22 @@ if theater_data_match:
     theater_data = json.loads(theater_data_match.group(1))
     theaters = []
     for region in theater_data:
+        region_code = region["RegionCode"]
         for theater in region["AreaTheaterDetailList"]:
             theater_name = theater["TheaterName"]
             theater_code = theater["TheaterCode"]
             theater_url = f"http://www.cgv.co.kr/theaters/?theaterCode={theater_code}"
-            theater_doc = {"name": theater_name, "url": theater_url}
+            theater_doc = {
+                "region_code": region_code,
+                "theater_name": theater_name,
+                "theater_code": theater_code,
+                "theater_url": theater_url
+            }
             theaters.append(theater_doc)
-    
+
     # MongoDB에 데이터 삽입
     if theaters:
+        collection.delete_many({})  # 기존 데이터 삭제
         collection.insert_many(theaters)
         print(f"{len(theaters)}개의 영화관 데이터가 MongoDB에 삽입되었습니다.")
 else:

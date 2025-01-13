@@ -47,7 +47,7 @@ if response.status_code == 200:
             cleaned_name = re.sub(r"\s*\(.*?\)", "", raw_name)
             theater_doc = {
                 "name": f"롯데시네마 {cleaned_name}",
-                "code": f"{item['DivisionCode']}|{item['DetailDivisionCode']}|{item['CinemaID']}"
+                "url": f"{item['DivisionCode']}|{item['DetailDivisionCode']}|{item['CinemaID']}"
             }
             theaters.append(theater_doc)
         
