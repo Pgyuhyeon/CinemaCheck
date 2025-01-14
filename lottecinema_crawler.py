@@ -42,7 +42,7 @@ def filter_and_save_data(data, cinema_name, date):
 
         # 데이터 구조 생성
         movie_info = {
-            "CinemaName": cinema_name,  # 영화관 이름 추가
+            "CinemaName": cinema_name.replace(" ", ""),  # 영화관 이름 추가
             "MovieName": movie_name,
             "StartTime": start_time,
             "ScreenName": screen_name,

@@ -81,8 +81,20 @@ const fetchMoviesFromDBWithDistance = async (movieName, theaters, userLatitude, 
     const collection = theaterDb.collection('Movies'); // Movies 컬렉션
 
     try {
-      const query = date ? { MovieName: movieName, Date: date } : { MovieName: movieName };
-      const movies = await collection.find(query).toArray();
+      const query = date
+  ? {
+      MovieName: movieName,
+      $expr: {
+        $eq: [
+          { $replaceAll: { input: "$Date", find: "-", replacement: "" } },
+          date.replace('-', "")
+        ]
+      }
+    }
+  : { MovieName: movieName };
+
+const movies = await collection.find(query).toArray();
+
       if (movies.length > 0) {
         const distance = calculateDistance(
           userLatitude,
