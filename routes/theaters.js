@@ -72,7 +72,7 @@ const searchTheaters = async (latitude, longitude) => {
 };
 
 // MongoDB에서 영화 상영 정보 검색 및 거리 계산 추가
-const fetchMoviesFromDBWithDistance = async (movieName, theaters, userLatitude, userLongitude) => {
+const fetchMoviesFromDBWithDistance = async (movieName, theaters, userLatitude, userLongitude, date) => {
   const movieSchedules = [];
 
   for (const theater of theaters) {
@@ -81,7 +81,8 @@ const fetchMoviesFromDBWithDistance = async (movieName, theaters, userLatitude, 
     const collection = theaterDb.collection('Movies'); // Movies 컬렉션
 
     try {
-      const movies = await collection.find({ MovieName: movieName }).toArray();
+      const query = date ? { MovieName: movieName, Date: date } : { MovieName: movieName };
+      const movies = await collection.find(query).toArray();
       if (movies.length > 0) {
         const distance = calculateDistance(
           userLatitude,
@@ -99,6 +100,7 @@ const fetchMoviesFromDBWithDistance = async (movieName, theaters, userLatitude, 
             ScreenName: movie.ScreenName,
             BookingSeatCount: movie.BookingSeatCount,
             TotalSeatCount: movie.TotalSeatCount,
+            Date: movie.Date,
             Distance: `${distance.toFixed(2)} km`,
           })),
         });
@@ -114,7 +116,7 @@ const fetchMoviesFromDBWithDistance = async (movieName, theaters, userLatitude, 
 // API 엔드포인트
 router.get('/', async (req, res) => {
   try {
-    const { latitude, longitude, movieName } = req.query;
+    const { latitude, longitude, movieName, date } = req.query;
 
     if (!latitude || !longitude || !movieName) {
       return res.status(400).json({ error: 'latitude, longitude, and movieName are required' });
@@ -127,7 +129,7 @@ router.get('/', async (req, res) => {
     const theaters = await searchTheaters(userLatitude, userLongitude);
 
     // MongoDB에서 영화 상영 정보 가져오기 + 거리 추가
-    const movieSchedules = await fetchMoviesFromDBWithDistance(movieName, theaters, userLatitude, userLongitude);
+    const movieSchedules = await fetchMoviesFromDBWithDistance(movieName, theaters, userLatitude, userLongitude, date);
 
     // 응답 반환
     res.json({

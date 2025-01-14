@@ -119,11 +119,12 @@ async function updateMegaboxSchedules() {
     for (let i = 0; i < theaters.length; i += limit) {
       const batch = theaters.slice(i, i + limit);
       const promises = batch.map((theater) => {
-        const { name: cinemaName, branch_no: cinemaCode } = theater;
+        let { name: cinemaName, branch_no: cinemaCode } = theater;
         if (!cinemaCode) {
           console.warn(`${cinemaName}에 code 필드가 없습니다. 건너뜁니다.`);
           return Promise.resolve();
         }
+        cinemaName = cinemaName.replace(/\s+/g, "");
         const command = `python3 megabox_crawler.py "${cinemaCode}" "${cinemaName}"`;
         return new Promise((resolve, reject) => {
           exec(command, (error, stdout, stderr) => {
@@ -147,7 +148,7 @@ async function updateMegaboxSchedules() {
 
 // 스케줄러 시작 함수
 function startScheduler() {
-  
+
   console.log("스케줄러가 설정되었습니다.");
   // 매일 자정에 롯데시네마 스케줄러 실행
   cron.schedule("0 0 * * *", updateLotteCinemaSchedules);
@@ -157,6 +158,10 @@ function startScheduler() {
 
   // 매일 오전 2시에 메가박스 스케줄러 실행
   cron.schedule("0 2 * * *", updateMegaboxSchedules);
+
+  // updateMegaboxSchedules();
+  // updateCGVSchedules();
+  // updateLotteCinemaSchedules();
 }
 
 module.exports = { startScheduler, updateLotteCinemaSchedules, updateCGVSchedules, updateMegaboxSchedules };
