@@ -95,15 +95,68 @@ async function updateCGVSchedules() {
   }
 }
 
-// 스케줄러 시작 함수
-function startScheduler() {
-  console.log("스케줄러가 설정되었습니다.");
-  // updateCGVSchedules();
-  // 매일 자정에 롯데시네마 스케줄러 실행
-  cron.schedule("0 0 * * *", updateLotteCinemaSchedules);
+// 메가박스 스케줄 업데이트 함수
+async function updateMegaboxSchedules() {
+  console.log("메가박스 스케줄러 실행 중...");
 
-  // 매일 오전 1시에 CGV 스케줄러 실행
-  cron.schedule("0 1 * * *", updateCGVSchedules);
+  try {
+    if (!mongoose.connection.db) {
+      console.log("MongoDB 연결 대기 중...");
+      await new Promise((resolve) => mongoose.connection.once("open", resolve));
+    }
+
+    const theaters = await mongoose.connection.db
+      .collection("theaters")
+      .find({ name: { $regex: "메가박스" } })
+      .toArray();
+
+    if (!theaters.length) {
+      console.log("메가박스 영화관 데이터를 찾을 수 없습니다.");
+      return;
+    }
+
+    const limit = 5; // 동시에 실행할 Python 스크립트 수 제한
+    for (let i = 0; i < theaters.length; i += limit) {
+      const batch = theaters.slice(i, i + limit);
+      const promises = batch.map((theater) => {
+        const { name: cinemaName, branch_no: cinemaCode } = theater;
+        if (!cinemaCode) {
+          console.warn(`${cinemaName}에 code 필드가 없습니다. 건너뜁니다.`);
+          return Promise.resolve();
+        }
+        const command = `python3 megabox_crawler.py "${cinemaCode}" "${cinemaName}"`;
+        return new Promise((resolve, reject) => {
+          exec(command, (error, stdout, stderr) => {
+            if (error) {
+              console.error(`메가박스 Python 실행 오류: ${cinemaName} - ${error.message}`);
+              reject(error);
+            } else {
+              console.log(`메가박스 ${cinemaName} 업데이트 완료: ${stdout}`);
+              resolve(stdout);
+            }
+          });
+        });
+      });
+      await Promise.all(promises);
+    }
+    console.log("모든 메가박스 영화관 업데이트 완료");
+  } catch (error) {
+    console.error("메가박스 스케줄러 실행 중 오류 발생: ", error);
+  }
 }
 
-module.exports = { startScheduler, updateLotteCinemaSchedules, updateCGVSchedules };
+// 스케줄러 시작 함수
+function startScheduler() {
+  
+  console.log("스케줄러가 설정되었습니다.");
+  // 매일 자정에 롯데시네마 스케줄러 실행
+  cron.schedule("0 0 * * *", updateLotteCinemaSchedules);
+  
+  // 매일 오전 1시에 CGV 스케줄러 실행
+  cron.schedule("0 1 * * *", updateCGVSchedules);
+
+  // 매일 오전 2시에 메가박스 스케줄러 실행
+  cron.schedule("0 2 * * *", updateMegaboxSchedules);
+}
+
+module.exports = { startScheduler, updateLotteCinemaSchedules, updateCGVSchedules, updateMegaboxSchedules };

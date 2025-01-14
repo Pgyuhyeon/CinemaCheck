@@ -24,19 +24,18 @@ brand_name = "메가박스"
 theater_list = soup.find_all("li", {"data-brch-no": True})
 for theater in theater_list:
     theater_name = theater.find("a").text.strip()
-    full_name = f"{brand_name} {theater_name}"  # 브랜드 이름 추가
+    full_name = f"{brand_name}{theater_name}"  # 브랜드 이름 추가 및 띄어쓰기 제거
     branch_no = theater["data-brch-no"]
-    theater_url = f"https://www.megabox.co.kr/theater?brchNo={branch_no}"
     
     # MongoDB에 저장할 문서
-    theater_doc = {"name": full_name, "url": theater_url}
+    theater_doc = {"name": full_name, "branch_no": branch_no}
     theaters.append(theater_doc)
 
 # MongoDB에 데이터 삽입 (중복 방지)
 if theaters:
     for theater in theaters:
         collection.update_one(
-            {"name": theater["name"]},  # 중복 확인 조건 (이름만 확인)
+            {"branch_no": theater["branch_no"]},  # 중복 확인 조건
             {"$setOnInsert": theater},  # 중복이 없을 경우만 삽입
             upsert=True
         )

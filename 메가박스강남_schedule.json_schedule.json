@@ -1,0 +1,299 @@
+[
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "하얼빈",
+        "StartTime": "20:45",
+        "ScreenName": "1관",
+        "BookingSeatCount": 232,
+        "TotalSeatCount": 232,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "하얼빈",
+        "StartTime": "12:15",
+        "ScreenName": "2관",
+        "BookingSeatCount": 100,
+        "TotalSeatCount": 103,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "하얼빈",
+        "StartTime": "14:40",
+        "ScreenName": "2관",
+        "BookingSeatCount": 100,
+        "TotalSeatCount": 103,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "하얼빈",
+        "StartTime": "17:05",
+        "ScreenName": "2관",
+        "BookingSeatCount": 100,
+        "TotalSeatCount": 103,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "하얼빈",
+        "StartTime": "19:30",
+        "ScreenName": "2관",
+        "BookingSeatCount": 103,
+        "TotalSeatCount": 103,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "하얼빈",
+        "StartTime": "21:55",
+        "ScreenName": "2관",
+        "BookingSeatCount": 103,
+        "TotalSeatCount": 103,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "보고타: 마지막 기회의 땅",
+        "StartTime": "16:05",
+        "ScreenName": "1관",
+        "BookingSeatCount": 222,
+        "TotalSeatCount": 232,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "보고타: 마지막 기회의 땅",
+        "StartTime": "13:25",
+        "ScreenName": "컴포트 5관[리클라이너] [Laser]",
+        "BookingSeatCount": 48,
+        "TotalSeatCount": 54,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "보고타: 마지막 기회의 땅",
+        "StartTime": "21:50",
+        "ScreenName": "컴포트 6관[리클라이너] [Laser]",
+        "BookingSeatCount": 51,
+        "TotalSeatCount": 56,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "동화지만 청불입니다",
+        "StartTime": "17:30",
+        "ScreenName": "컴포트 4관[리클라이너] [Laser]",
+        "BookingSeatCount": 52,
+        "TotalSeatCount": 53,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "동화지만 청불입니다",
+        "StartTime": "19:50",
+        "ScreenName": "컴포트 4관[리클라이너] [Laser]",
+        "BookingSeatCount": 50,
+        "TotalSeatCount": 53,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "동화지만 청불입니다",
+        "StartTime": "22:10",
+        "ScreenName": "컴포트 4관[리클라이너] [Laser]",
+        "BookingSeatCount": 51,
+        "TotalSeatCount": 53,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "동화지만 청불입니다",
+        "StartTime": "21:20",
+        "ScreenName": "컴포트 5관[리클라이너] [Laser]",
+        "BookingSeatCount": 46,
+        "TotalSeatCount": 54,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "러브레터 [30주년 에디션]",
+        "StartTime": "18:20",
+        "ScreenName": "1관",
+        "BookingSeatCount": 228,
+        "TotalSeatCount": 232,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "러브레터 [30주년 에디션]",
+        "StartTime": "12:20",
+        "ScreenName": "컴포트 3관[리클라이너] [Laser]",
+        "BookingSeatCount": 115,
+        "TotalSeatCount": 115,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "러브레터 [30주년 에디션]",
+        "StartTime": "14:45",
+        "ScreenName": "컴포트 3관[리클라이너] [Laser]",
+        "BookingSeatCount": 104,
+        "TotalSeatCount": 115,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "러브레터 [30주년 에디션]",
+        "StartTime": "17:10",
+        "ScreenName": "컴포트 3관[리클라이너] [Laser]",
+        "BookingSeatCount": 106,
+        "TotalSeatCount": 115,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "러브레터 [30주년 에디션]",
+        "StartTime": "19:40",
+        "ScreenName": "컴포트 3관[리클라이너] [Laser]",
+        "BookingSeatCount": 103,
+        "TotalSeatCount": 115,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "러브레터 [30주년 에디션]",
+        "StartTime": "22:10",
+        "ScreenName": "컴포트 3관[리클라이너] [Laser]",
+        "BookingSeatCount": 112,
+        "TotalSeatCount": 115,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "서브스턴스",
+        "StartTime": "15:40",
+        "ScreenName": "컴포트 5관[리클라이너] [Laser]",
+        "BookingSeatCount": 45,
+        "TotalSeatCount": 54,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "서브스턴스",
+        "StartTime": "18:30",
+        "ScreenName": "컴포트 5관[리클라이너] [Laser]",
+        "BookingSeatCount": 48,
+        "TotalSeatCount": 54,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "위키드",
+        "StartTime": "12:55",
+        "ScreenName": "1관",
+        "BookingSeatCount": 228,
+        "TotalSeatCount": 232,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "위키드",
+        "StartTime": "18:40",
+        "ScreenName": "컴포트 6관[리클라이너] [Laser]",
+        "BookingSeatCount": 48,
+        "TotalSeatCount": 56,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "데드데드 데몬즈 디디디디 디스트럭션: 파트1",
+        "StartTime": "16:50",
+        "ScreenName": "컴포트 7관[리클라이너] [Laser]",
+        "BookingSeatCount": 32,
+        "TotalSeatCount": 46,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "페라리",
+        "StartTime": "19:20",
+        "ScreenName": "컴포트 7관[리클라이너] [Laser]",
+        "BookingSeatCount": 35,
+        "TotalSeatCount": 46,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "페라리",
+        "StartTime": "22:00",
+        "ScreenName": "컴포트 7관[리클라이너] [Laser]",
+        "BookingSeatCount": 43,
+        "TotalSeatCount": 46,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "소방관",
+        "StartTime": "15:15",
+        "ScreenName": "컴포트 4관[리클라이너] [Laser]",
+        "BookingSeatCount": 48,
+        "TotalSeatCount": 53,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "&#40;더빙&#41; 극장판 짱구는 못말려: 우리들의 공룡일기",
+        "StartTime": "11:50",
+        "ScreenName": "컴포트 6관[리클라이너] [Laser]",
+        "BookingSeatCount": 54,
+        "TotalSeatCount": 56,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "&#40;더빙&#41; 극장판 짱구는 못말려: 우리들의 공룡일기",
+        "StartTime": "14:05",
+        "ScreenName": "컴포트 6관[리클라이너] [Laser]",
+        "BookingSeatCount": 42,
+        "TotalSeatCount": 56,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "모아나 2",
+        "StartTime": "12:30",
+        "ScreenName": "컴포트 7관[리클라이너] [Laser]",
+        "BookingSeatCount": 44,
+        "TotalSeatCount": 46,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "모아나 2",
+        "StartTime": "14:40",
+        "ScreenName": "컴포트 7관[리클라이너] [Laser]",
+        "BookingSeatCount": 32,
+        "TotalSeatCount": 46,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "수퍼 소닉3",
+        "StartTime": "16:20",
+        "ScreenName": "컴포트 6관[리클라이너] [Laser]",
+        "BookingSeatCount": 51,
+        "TotalSeatCount": 56,
+        "Date": "20250114"
+    },
+    {
+        "CinemaName": "메가박스강남_schedule.json",
+        "MovieName": "시빌 워: 분열의 시대",
+        "StartTime": "12:50",
+        "ScreenName": "컴포트 4관[리클라이너] [Laser]",
+        "BookingSeatCount": 50,
+        "TotalSeatCount": 53,
+        "Date": "20250114"
+    }
+]

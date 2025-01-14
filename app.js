@@ -4,11 +4,15 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors"); // CORS 패키지 추가
 const { startScheduler, updateLotteCinemaSchedules } = require("./scheduler");
 
 const theaterRoutes = require('./routes/theaters');
 
 const mongoURI = "mongodb://localhost:27017/theaterDB";
+
+
+
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -26,9 +30,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/api/theaters', theaterRoutes);
-
+// CORS 설정 추가
+app.use(cors()); // 모든 도메인 허용
+// app.use(cors({ origin: 'http://your-frontend-domain.com' })); // 특정 도메인만 허용
 // 스케줄러 실행
-// startScheduler();
+startScheduler();
 // updateLotteCinemaSchedules();
 
 app.use(function (req, res, next) {
