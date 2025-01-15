@@ -12,4 +12,4 @@ def delete_specific_databases(pattern):
             print(f"Deleted database: {db_name}")
 
 # 메가박스 관련 데이터베이스 삭제
-delete_specific_databases("롯데시네마")
+delete_specific_databases("CGV")

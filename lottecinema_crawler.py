@@ -3,6 +3,7 @@ import json
 import requests
 from datetime import datetime, timedelta
 import sys
+import time
 
 # MongoDB 연결 설정
 client = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -19,14 +20,15 @@ def delete_old_data(cinema_name):
     result = collection.delete_many({"Date": {"$exists": False}})
     print(f"{safe_cinema_name} 데이터베이스에서 {result.deleted_count}개의 날짜 정보가 없는 데이터를 삭제했습니다.")
 
-# StartTime이 null이 아닌 데이터만 추출하여 MongoDB에 저장하는 함수
+# 데이터를 필터링 및 저장
 def filter_and_save_data(data, cinema_name, date):
     # 영화관 이름에서 공백 및 특수 문자 제거
     safe_cinema_name = "".join(c for c in cinema_name if c.isalnum() or c == "_")
 
     play_sequences = data.get("PlaySeqs", {}).get("Items", [])
-    
-    extracted_data = []
+    db = client[safe_cinema_name]
+    collection = db["Movies"]
+
     for item in play_sequences:
         start_time = item.get("StartTime")
 
@@ -42,7 +44,7 @@ def filter_and_save_data(data, cinema_name, date):
 
         # 데이터 구조 생성
         movie_info = {
-            "CinemaName": cinema_name.replace(" ", ""),  # 영화관 이름 추가
+            "CinemaName": cinema_name.replace(" ", ""),
             "MovieName": movie_name,
             "StartTime": start_time,
             "ScreenName": screen_name,
@@ -50,16 +52,21 @@ def filter_and_save_data(data, cinema_name, date):
             "TotalSeatCount": total_seats,
             "Date": date  # 상영 날짜 추가
         }
-        extracted_data.append(movie_info)
 
-    # MongoDB 저장
-    db = client[safe_cinema_name]
-    collection = db["Movies"]
-    if extracted_data:
-        collection.insert_many(extracted_data)
-        print(f"{safe_cinema_name} 데이터베이스에 {len(extracted_data)}개의 데이터를 저장했습니다.")
-    else:
-        print(f"{safe_cinema_name} 데이터베이스에 저장할 데이터가 없습니다.")
+        # 중복 방지: MongoDB에 동일한 데이터가 있는 경우 업데이트, 없으면 삽입
+        collection.update_one(
+            {
+                "CinemaName": movie_info["CinemaName"],
+                "MovieName": movie_info["MovieName"],
+                "StartTime": movie_info["StartTime"],
+                "ScreenName": movie_info["ScreenName"],
+                "Date": movie_info["Date"]
+            },
+            {"$set": movie_info},
+            upsert=True
+        )
+
+    print(f"{safe_cinema_name} 데이터베이스에 {len(play_sequences)}개의 데이터를 처리했습니다.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -96,10 +103,15 @@ if __name__ == "__main__":
             "Referer": "https://www.lottecinema.co.kr/NLCHS/Ticketing/Schedule"
         }
 
-        response = requests.post(url, files=files, headers=headers)
+        try:
+            response = requests.post(url, files=files, headers=headers, timeout=10)
 
-        if response.status_code == 200:
-            response_data = response.json()
-            filter_and_save_data(response_data, cinema_name, date)
-        else:
-            print(f"API 요청 실패: {response.status_code}")
+            if response.status_code == 200:
+                response_data = response.json()
+                filter_and_save_data(response_data, cinema_name, date)
+            else:
+                print(f"API 요청 실패: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            print(f"요청 중 오류 발생: {e}")
+
+       

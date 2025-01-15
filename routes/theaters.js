@@ -66,10 +66,18 @@ const searchTheaters = async (latitude, longitude) => {
   }
 
   // CGV, 롯데시네마, 메가박스만 필터링
-  return theaters.filter((theater) =>
+  const filteredTheaters = theaters.filter((theater) =>
     ['CGV', '롯데시네마', '메가박스'].some((brand) => theater.place_name.includes(brand))
   );
+
+  // 중복 제거 (영화관 이름을 기준으로)
+  const uniqueTheaters = Array.from(
+    new Map(filteredTheaters.map((theater) => [theater.place_name, theater])).values()
+  );
+
+  return uniqueTheaters;
 };
+
 
 // MongoDB에서 영화 상영 정보 검색 및 거리 계산 추가
 const fetchMoviesFromDBWithDistance = async (movieName, theaters, userLatitude, userLongitude, date) => {

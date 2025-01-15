@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pymongo
 from datetime import datetime, timedelta
+import time  # 요청 간 지연 추가를 위한 모듈
 import re
 
 # MongoDB 연결 설정
@@ -27,15 +28,13 @@ def crawl_and_save_cgv_schedule(region_code, theater_code, cinema_name):
     # 날짜가 없는 데이터 삭제
     collection.delete_many({"Date": {"$exists": False}})
 
-    extracted_data = []
-
     for date in dates:
         # CGV 상영 정보 URL
         url = f"http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode={region_code}&theatercode={theater_code}&date={date}"
 
         # 요청 헤더 설정
         headers = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0 Safari/537.36",
             "Referer": f"http://www.cgv.co.kr/theaters/?theaterCode={theater_code}",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Encoding": "gzip, deflate",
@@ -45,9 +44,11 @@ def crawl_and_save_cgv_schedule(region_code, theater_code, cinema_name):
         }
 
         # 요청 보내기
-        response = requests.get(url, headers=headers)
-        if response.status_code != 200:
-            print(f"{date} 요청 실패: {response.status_code}")
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            response.raise_for_status()
+        except requests.exceptions.RequestException as e:
+            print(f"{date} 요청 실패: {e}")
             continue
 
         # HTML 파싱
@@ -103,14 +104,23 @@ def crawl_and_save_cgv_schedule(region_code, theater_code, cinema_name):
                         "TotalSeatCount": total_seat,
                         "Date": date  # 상영 날짜 추가
                     }
-                    extracted_data.append(movie_info)
 
-    # MongoDB에 저장
-    if extracted_data:
-        collection.insert_many(extracted_data)
-        print(f"{cinema_name} 데이터베이스에 {len(extracted_data)}개의 데이터를 저장했습니다.")
-    else:
-        print(f"{cinema_name} 데이터베이스에 저장할 데이터가 없습니다.")
+                    # 중복 방지를 위해 MongoDB 업데이트
+                    collection.update_one(
+                        {
+                            "CinemaName": cinema_name,
+                            "MovieName": movie_title,
+                            "StartTime": start_time,
+                            "ScreenName": hall_name,
+                            "Date": date
+                        },
+                        {"$set": movie_info},  # 데이터 업데이트
+                        upsert=True  # 데이터가 없으면 삽입
+                    )
+
+       
+
+    print(f"{cinema_name} 데이터 크롤링 완료.")
 
 if __name__ == "__main__":
     # 커맨드라인 인자 처리
@@ -124,4 +134,3 @@ if __name__ == "__main__":
 
     print(f"{cinema_name} 데이터 크롤링 시작...")
     crawl_and_save_cgv_schedule(region_code, theater_code, cinema_name)
-    print(f"{cinema_name} 데이터 크롤링 완료.")

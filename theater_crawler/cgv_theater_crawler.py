@@ -1,5 +1,6 @@
 import re
 import json
+import time  # 요청 간 딜레이 추가를 위한 모듈
 from pymongo import MongoClient
 
 # MongoDB 연결 설정
@@ -29,6 +30,9 @@ if theater_data_match:
                 "theater_url": theater_url
             }
             theaters.append(theater_doc)
+            
+            # 요청 간 지연 시간 추가 (1~2초)
+            time.sleep(1.5)  # 1.5초 지연
 
     # MongoDB에 데이터 삽입
     if theaters:
