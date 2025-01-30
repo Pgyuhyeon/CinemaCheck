@@ -35,6 +35,7 @@
 # 01. CINEMACEHCK, 왜 만들었을까?
 
 ---
+![image](https://github.com/user-attachments/assets/9ad3abf6-f2b7-4f6b-a7c0-c7dc4018615e)
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/70527308-79a5-4e26-86e1-e16b8b29ecb3/image.png)
 
